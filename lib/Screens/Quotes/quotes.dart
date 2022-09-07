@@ -36,7 +36,7 @@ class _quotescreenState extends State<quotescreen> {
         body: StreamBuilder(
           stream: _qoutes
               .orderBy(
-                'qoute',
+                'date',
                 descending: true,
               )
               .snapshots(),

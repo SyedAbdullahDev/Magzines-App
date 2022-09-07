@@ -35,7 +35,7 @@ class _VidioScreenState extends State<VidioScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-              if (FirebaseAuth.instance.currentUser != null) {
+            if (FirebaseAuth.instance.currentUser != null) {
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => UserScreen()));
             } else {
@@ -52,7 +52,7 @@ class _VidioScreenState extends State<VidioScreen> {
       ),
       backgroundColor: Colors.grey.shade300,
       body: StreamBuilder(
-        stream: _vid.orderBy('title', descending: true).snapshots(),
+        stream: _vid.orderBy('date', descending: true).snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
           if (streamSnapshot.hasData) {
             return ListView.builder(

@@ -22,7 +22,7 @@ class Article_Screen extends StatefulWidget {
 class _Article_ScreenState extends State<Article_Screen> {
   final CollectionReference _blog =
       FirebaseFirestore.instance.collection('blogs');
-      
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +53,7 @@ class _Article_ScreenState extends State<Article_Screen> {
       ),
       backgroundColor: Colors.grey.shade300,
       body: StreamBuilder(
-        stream: _blog.orderBy("link", descending: true).snapshots(),
+        stream: _blog.orderBy("date", descending: true).snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
           if (streamSnapshot.hasData) {
             return ListView.builder(
