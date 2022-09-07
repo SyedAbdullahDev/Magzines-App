@@ -150,68 +150,71 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            Row(
-              children: [
-                StreamBuilder(
-                  stream: _magazines.orderBy('date', descending: true).snapshots(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                    if (streamSnapshot.hasData) {
-                      return GridView.builder(
-                          physics: ScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 300,
-                                  childAspectRatio: 3 / 5,
-                                  crossAxisSpacing: 0,
-                                  mainAxisSpacing: 0),
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.only(top: 8, bottom: 0),
-                          itemCount: 2,
-                          itemBuilder: (BuildContext ctx, index) {
-                            final DocumentSnapshot documentSnapshot =
-                                streamSnapshot.data!.docs[index];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 220,
-                                    width: 155,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Get.to(Description(
-                                          read: documentSnapshot['file'],
-                                          preview: documentSnapshot['preview'],
-                                          image: documentSnapshot['thumbnail'],
-                                          date: documentSnapshot['date'],
-                                          title: documentSnapshot['title'],
-                                        ));
-                                      },
-                                      child: FancyShimmerImage(
-                                        boxFit: BoxFit.cover,
-                                        errorWidget: Image.network(
-                                            'https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1'),
-                                        imageUrl: documentSnapshot['thumbnail'],
-                                      ),
+            SizedBox(
+              height: 300,
+              child: StreamBuilder(
+                stream:
+                    _magazines.orderBy('date', descending: true).snapshots(),
+                builder:
+                    (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  if (streamSnapshot.hasData) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                        physics: ScrollPhysics(),
+                        // gridDelegate:
+                        //     const SliverGridDelegateWithMaxCrossAxisExtent(
+                        //         maxCrossAxisExtent: 300,
+                        //         childAspectRatio: 3 / 5,
+                        //         crossAxisSpacing: 0,
+                        //         mainAxisSpacing: 0),
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.only(top: 8, bottom: 0),
+                        itemCount: streamSnapshot.data!.docs.length,
+                        itemBuilder: (BuildContext ctx, index) {
+                          final DocumentSnapshot documentSnapshot =
+                              streamSnapshot.data!.docs[index];
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 220,
+                                  width: 155,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.to(Description(
+                                        read: documentSnapshot['file'],
+                                        preview: documentSnapshot['preview'],
+                                        image: documentSnapshot['thumbnail'],
+                                        date: documentSnapshot['date'],
+                                        title: documentSnapshot['title'],
+                                      ));
+                                    },
+                                    child: FancyShimmerImage(
+                                      boxFit: BoxFit.cover,
+                                      errorWidget: Image.network(
+                                          'https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1'),
+                                      imageUrl: documentSnapshot['thumbnail'],
                                     ),
                                   ),
-                                  Text(
-                                    documentSnapshot['title'],
-                                    textDirection: TextDirection.rtl,
-                                    style: GoogleFonts.notoNastaliqUrdu(),
-                                  ),
-                                ],
-                              ),
-                            );
-                          });
-                    }
-                    return const Center(
-                        child: CircularProgressIndicator(
-                      color: Colors.blue,
-                    ));
-                  },
-                ),
-              ],
+                                ),
+                                Text(
+                                  documentSnapshot['title'],
+                                  textDirection: TextDirection.rtl,
+                                  style: GoogleFonts.notoNastaliqUrdu(),
+                                ),
+                              ],
+                            ),
+                          );
+                        });
+                  }
+                  return const Center(
+                      child: CircularProgressIndicator(
+                    color: Colors.blue,
+                  ));
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -230,64 +233,76 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            StreamBuilder(
-              stream: _magazines.orderBy('date', descending: true).snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                if (streamSnapshot.hasData) {
-                  return GridView.builder(
-                      physics: ScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 300,
-                              childAspectRatio: 3 / 5,
-                              crossAxisSpacing: 0,
-                              mainAxisSpacing: 0),
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.only(top: 8),
-                      itemCount: 2,
-                      itemBuilder: (BuildContext ctx, index) {
-                        final DocumentSnapshot documentSnapshot =
-                            streamSnapshot.data!.docs[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 220,
-                                width: 155,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Get.to(Description(
-                                      read: documentSnapshot['file'],
-                                      preview: documentSnapshot['preview'],
-                                      image: documentSnapshot['thumbnail'],
-                                      date: documentSnapshot['date'],
-                                      title: documentSnapshot['title'],
-                                    ));
-                                  },
-                                  child: FancyShimmerImage(
-                                    boxFit: BoxFit.cover,
-                                    errorWidget: Image.network(
-                                        'https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1'),
-                                    imageUrl: documentSnapshot['thumbnail'],
+            SizedBox(
+              height: 300,
+              child: StreamBuilder(
+                stream: _magazines
+                    .orderBy('date', descending: true)
+                    .snapshots(),
+                builder:
+                    (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  if (streamSnapshot.hasData) {
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        physics: ScrollPhysics(),
+                        // gridDelegate:
+                        //     const SliverGridDelegateWithMaxCrossAxisExtent(
+                        //         maxCrossAxisExtent: 300,
+                        //         childAspectRatio: 3 / 5,
+                        //         crossAxisSpacing: 0,
+                        //         mainAxisSpacing: 0),
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.only(top: 8),
+                        // itemCount: 2,
+                        itemCount: streamSnapshot.data!.docs.length,
+                        itemBuilder: (BuildContext ctx, index) {
+                          final DocumentSnapshot documentSnapshot =
+                              streamSnapshot.data!.docs[index];
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 220,
+                                  width: 155,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.to(Description(
+                                        read: documentSnapshot['file'],
+                                        preview:
+                                            documentSnapshot['preview'],
+                                        image:
+                                            documentSnapshot['thumbnail'],
+                                        date: documentSnapshot['date'],
+                                        title: documentSnapshot['title'],
+                                      ));
+                                    },
+                                    child: FancyShimmerImage(
+                                      boxFit: BoxFit.cover,
+                                      errorWidget: Image.network(
+                                          'https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1'),
+                                      imageUrl:
+                                          documentSnapshot['thumbnail'],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text(
-                                documentSnapshot['title'],
-                                textDirection: TextDirection.rtl,
-                                style: GoogleFonts.notoNastaliqUrdu(),
-                              ),
-                            ],
-                          ),
-                        );
-                      });
-                }
-                return const Center(
-                    child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ));
-              },
+                                Text(
+                                  documentSnapshot['title'],
+                                  textDirection: TextDirection.rtl,
+                                  style: GoogleFonts.notoNastaliqUrdu(),
+                                ),
+                              ],
+                            ),
+                          );
+                        });
+                  }
+                  return const Center(
+                      child: CircularProgressIndicator(
+                    color: Colors.blue,
+                  ));
+                },
+              ),
             ),
             Padding(
               padding:
@@ -321,86 +336,91 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            StreamBuilder(
-              stream: _blog.orderBy("date", descending: true).snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                if (streamSnapshot.hasData) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    itemCount: 1,
-                    itemBuilder: (context, index) {
-                      final DocumentSnapshot documentSnapshot =
-                          streamSnapshot.data!.docs[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(
-                              Description_Screen(
-                                image: documentSnapshot['thumbnail'],
-                                title: documentSnapshot['title'],
-                                description: documentSnapshot['link'],
-                              ),
-                            );
-                          },
-                          child: Card(
-                            elevation: 7,
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: SizedBox(
-                                height: 240,
-                                width: 280,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  textDirection: TextDirection.rtl,
-                                  children: [
-                                    FancyShimmerImage(
-                                      width: 250,
-                                      height: 150,
-                                      boxFit: BoxFit.cover,
-                                      errorWidget: Image.network(
-                                          'https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1'),
-                                      imageUrl: documentSnapshot['thumbnail'],
-                                    ),
-                                    Text(
-                                      documentSnapshot['date'],
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.roboto(
-                                        textStyle: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.blue),
+            SizedBox(
+              height: 300,
+              child: StreamBuilder(
+                stream: _blog.orderBy("date", descending: true).snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  if (streamSnapshot.hasData) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      itemCount: streamSnapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final DocumentSnapshot documentSnapshot =
+                            streamSnapshot.data!.docs[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(
+                                Description_Screen(
+                                  image: documentSnapshot['thumbnail'],
+                                  title: documentSnapshot['title'],
+                                  description: documentSnapshot['link'],
+                                ),
+                              );
+                            },
+                            child: Card(
+                              elevation: 7,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: SizedBox(
+                                  height: 240,
+                                  width: 280,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    textDirection: TextDirection.rtl,
+                                    children: [
+                                      FancyShimmerImage(
+                                        width: 250,
+                                        height: 150,
+                                        boxFit: BoxFit.cover,
+                                        errorWidget: Image.network(
+                                            'https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1'),
+                                        imageUrl: documentSnapshot['thumbnail'],
                                       ),
-                                    ),
-                                    Text(
-                                      documentSnapshot['title'],
-                                      style: GoogleFonts.notoNastaliqUrdu(
-                                        textStyle: const TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.normal,
+                                      Text(
+                                        documentSnapshot['date'],
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.roboto(
+                                          textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.blue),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Text(
+                                        documentSnapshot['title'],
+                                        style: GoogleFonts.notoNastaliqUrdu(
+                                          textStyle: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
                   );
-                }
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
-                );
-              },
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(5.0),
@@ -435,67 +455,70 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            StreamBuilder(
-              stream: _qoutes
-                  .orderBy(
-                    'date',
-                    descending: true,
-                  )
-                  .snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                if (streamSnapshot.hasData) {
-                  return ListView.builder(
-                    physics: ScrollPhysics(),
-                    
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    itemCount: 1,
-                    itemBuilder: (context, index) {
-                      final DocumentSnapshot documentSnapshot =
-                          streamSnapshot.data!.docs[index];
-                      return InkWell(
-                        onTap: () {
-                          Get.to(
-                            viewmoreq(
-                              qote: documentSnapshot['qoute'],
-                              name: documentSnapshot['name'],
-                            ),
-                          );
-                        },
-                        child: Card(
-                          child: Container(
-                            color: Colors.black,
-                            height: 190,
-                            width: 250,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  documentSnapshot['qoute'],
-                                  textAlign: TextAlign.center,
-                                  textDirection: TextDirection.rtl,
-                                  style: GoogleFonts.notoNastaliqUrdu(
-                                    textStyle: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+            SizedBox(
+              height: 300,
+              child: StreamBuilder(
+                stream: _qoutes
+                    .orderBy(
+                      'date',
+                      descending: true,
+                    )
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  if (streamSnapshot.hasData) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      itemCount: streamSnapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final DocumentSnapshot documentSnapshot =
+                            streamSnapshot.data!.docs[index];
+                        return InkWell(
+                          onTap: () {
+                            Get.to(
+                              viewmoreq(
+                                qote: documentSnapshot['qoute'],
+                                name: documentSnapshot['name'],
+                              ),
+                            );
+                          },
+                          child: Card(
+                            child: Container(
+                              color: Colors.black,
+                              height: 190,
+                              width: 250,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text(
+                                    documentSnapshot['qoute'],
+                                    textAlign: TextAlign.center,
+                                    textDirection: TextDirection.rtl,
+                                    style: GoogleFonts.notoNastaliqUrdu(
+                                      textStyle: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
                   );
-                }
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
-                );
-              },
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(5.0),
@@ -533,70 +556,74 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            StreamBuilder(
-              stream: _vid.orderBy('date', descending: true).snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                if (streamSnapshot.hasData) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    itemCount: 1,
-                    itemBuilder: (context, index) {
-                      final DocumentSnapshot documentSnapshot =
-                          streamSnapshot.data!.docs[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(
-                              VideoPlayerItem(
-                                videoUrl: documentSnapshot['file'],
-                              ),
-                            );
-                          },
-                          child: Card(
-                            child: Column(
-                              textDirection: TextDirection.rtl,
-                              children: [
-                                const SizedBox(
-                                  height: 15,
+            SizedBox(
+              height: 300,
+              child: StreamBuilder(
+                stream: _vid.orderBy('date', descending: true).snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  if (streamSnapshot.hasData) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      itemCount: streamSnapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final DocumentSnapshot documentSnapshot =
+                            streamSnapshot.data!.docs[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(
+                                VideoPlayerItem(
+                                  videoUrl: documentSnapshot['file'],
                                 ),
-                                SizedBox(
-                                  height: 200,
-                                  width: MediaQuery.of(context).size.width - 38,
-                                  child: FancyShimmerImage(
-                                    boxFit: BoxFit.cover,
-                                    errorWidget: Image.network(
-                                        'https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1'),
-                                    imageUrl: documentSnapshot['thumbnail'],
+                              );
+                            },
+                            child: Card(
+                              child: Column(
+                                textDirection: TextDirection.rtl,
+                                children: [
+                                  const SizedBox(
+                                    height: 15,
                                   ),
-                                ),
-                                Container(
-                                  color: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 13, horizontal: 10),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Text(documentSnapshot['title'],
-                                      textDirection: TextDirection.rtl,
-                                      style: GoogleFonts.notoNastaliqUrdu(
-                                        fontSize: 15,
-                                      )),
-                                ),
-                              ],
+                                  SizedBox(
+                                    height: 200,
+                                    width: MediaQuery.of(context).size.width - 38,
+                                    child: FancyShimmerImage(
+                                      boxFit: BoxFit.cover,
+                                      errorWidget: Image.network(
+                                          'https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1'),
+                                      imageUrl: documentSnapshot['thumbnail'],
+                                    ),
+                                  ),
+                                  Container(
+                                    color: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 13, horizontal: 10),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Text(documentSnapshot['title'],
+                                        textDirection: TextDirection.rtl,
+                                        style: GoogleFonts.notoNastaliqUrdu(
+                                          fontSize: 15,
+                                        )),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
                   );
-                }
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
-                );
-              },
+                },
+              ),
             ),
           ],
         ),
