@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "389118531160",
+    "firebase_url": "https://magazine-5afff-default-rtdb.firebaseio.com",
+    "project_id": "magazine-5afff",
+    "storage_bucket": "magazine-5afff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389118531160:android:343de74351f5ec55ad9c2d",
+        "android_client_info": {
+          "package_name": "com.moharek.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389118531160-kvh6l4mo1d5gfvhcj3ihleufp5kquud8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwA-TCz9a6ZKT4_Ppi8KkePcSpsFTuoBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389118531160-kvh6l4mo1d5gfvhcj3ihleufp5kquud8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "389118531160-0cerh11f67tadhok3ollvonva76pl1ea.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.moharrekApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
